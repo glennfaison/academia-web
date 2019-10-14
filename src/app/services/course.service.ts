@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CourseService {
 
   async createCourse(course: any): Promise<any> {
     try {
-      const url = `${this.httpSvc.apiRoot}/courses`;
+      const url = `${environment.apiRoot}/courses`;
       const res = await this.httpSvc.post(url, course);
       if (!!res.error) { throw res; }
       return res;
@@ -23,7 +24,7 @@ export class CourseService {
 
   async fetchCourses(): Promise<any[]> {
     try {
-      const url = `${this.httpSvc.apiRoot}/courses`;
+      const url = `${environment.apiRoot}/courses`;
       const res = await this.httpSvc.get(url, {});
       if (!!res.error) { throw res; }
       return res;
@@ -34,7 +35,7 @@ export class CourseService {
 
   async updateCourse(course: any): Promise<any> {
     try {
-      const url = `${this.httpSvc.apiRoot}/courses/${course._id}`;
+      const url = `${environment.apiRoot}/courses/${course._id}`;
       const res = await this.httpSvc.put(url, course);
       if (!!res.error) { throw res; }
       return res;
@@ -45,7 +46,7 @@ export class CourseService {
 
   async deleteCourse(id: any): Promise<void> {
     try {
-      const url = `${this.httpSvc.apiRoot}/courses/${id}`;
+      const url = `${environment.apiRoot}/courses/${id}`;
       const res = await this.httpSvc.delete(url, {});
       if (!!res.error) { throw res; }
     } catch (error) {

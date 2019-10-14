@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ClassroomService {
 
   async createClassroom(classroom: any): Promise<any> {
     try {
-      const url = `${this.httpSvc.apiRoot}/classrooms`;
+      const url = `${environment.apiRoot}/classrooms`;
       const res = await this.httpSvc.post(url, classroom);
       if (!!res.error) { throw res; }
       return res;
@@ -23,7 +24,7 @@ export class ClassroomService {
 
   async fetchClassrooms(): Promise<any[]> {
     try {
-      const url = `${this.httpSvc.apiRoot}/classrooms`;
+      const url = `${environment.apiRoot}/classrooms`;
       const res = await this.httpSvc.get(url, {});
       if (!!res.error) { throw res; }
       return res;
@@ -34,7 +35,7 @@ export class ClassroomService {
 
   async updateClassroom(classroom: any): Promise<any> {
     try {
-      const url = `${this.httpSvc.apiRoot}/classrooms/${classroom._id}`;
+      const url = `${environment.apiRoot}/classrooms/${classroom._id}`;
       const res = await this.httpSvc.put(url, classroom);
       if (!!res.error) { throw res; }
       return res;
@@ -45,7 +46,7 @@ export class ClassroomService {
 
   async deleteClassroom(id: any): Promise<void> {
     try {
-      const url = `${this.httpSvc.apiRoot}/classrooms/${id}`;
+      const url = `${environment.apiRoot}/classrooms/${id}`;
       const res = await this.httpSvc.delete(url, {});
       if (!!res.error) { throw res; }
     } catch (error) {

@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  apiRoot = environment.apiRoot;
-  accessToken: any;
+  private accessToken: any;
   private options = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

@@ -1,1 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+
+/* for @swimlane/ngx-datatable */
+.table-header {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  align-content: center !important;
+  padding: 0 5px;
+  height: 42px;
+  background: transparent;
+  font-weight: 600;
+  text-transform: capitalize !important;
+  line-height: 42px !important;
+}
+
+.table-cell {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  padding: 0 5px;
+  height: 46px;
+  background: transparent;
+  border-top: solid lightgray 1px;
+}
+
+.pager * a {
+  display: flex !important;
+  justify-content: center;
+  align-content: center;
+  color: #344675;
+  width: 25px;
+  height: 25px;
+  margin: 2px;
+  font-size: 105%;
+}
+
+li.pages.active {
+  border: solid #344675 1px !important;
+}
+
+.datatable-footer-inner {
+  border-top: solid lightgray 1px;
+}
+
+.datatable-footer-inner>* {
+  font-size: 105%;
+}
+
+.pager * a:hover,
+.pager * a:focus {
+  color: #121416;
+}
+
+li.disabled * {
+  color: #7c757d;
+}

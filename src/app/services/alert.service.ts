@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AlertService {
   constructor(
-    private alerts: ToastrService,
+    protected alerts: ToastrService,
   ) { }
 
   show(message, title = '', position = 'toast-top-right', override = {}) {

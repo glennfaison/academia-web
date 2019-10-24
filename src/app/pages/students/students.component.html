@@ -3,63 +3,84 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">List of Students</h4>
-          <p class="category">All students studying in your school</p>
+          <h4 class="card-title">List of Examinations</h4>
+          <p class="category d-flex justify-content-between">
+            All examinations done in your school
+          </p>
         </div>
         <div class="card-body">
+
+
+          <hr class="mt-0" />
+          <div class="d-flex flex-column flex-md-row justify-content-between">
+            <div class="d-flex flex-column flex-md-row">
+              <!-- <div class="px-md-1">
+                  <label> Company (disabled) </label>
+                  <input class="form-control form-control-sm" disabled="" placeholder="Company" type="text"
+                    value="Creative Code Inc." />
+                </div> -->
+              <div class="px-md-1">
+                <label> Name </label>
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.name" />
+              </div>
+            </div>
+
+            <div class="d-flex flex-row justify-content-end">
+              <div>
+                <label for="exampleInputEmail1"></label>
+                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)" (click)="addOne()">
+                  <i class="tim-icons icon-simple-add"></i>
+                </a>
+              </div>
+              <div>
+                <label for="exampleInputEmail1"></label>
+                <a class="d-block btn-sm text-dark pr-0" title="Refresh List" href="javascript:void(0)"
+                  (click)="refresh()">
+                  <i class="tim-icons icon-refresh-02"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <hr class="mb-0" />
+
+
           <div class="table-responsive">
-            <table class="table tablesorter" id="">
+            <table class="table tablesorter">
               <thead class="text-primary">
                 <tr>
-                  <th>Name</th>
-                  <th>Country</th>
-                  <th>City</th>
-                  <th class="text-center">Salary</th>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th class="text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Dakota Rice</td>
-                  <td>Niger</td>
-                  <td>Oud-Turnhout</td>
-                  <td class="text-center">$36,738</td>
-                </tr>
-                <tr>
-                  <td>Minerva Hooper</td>
-                  <td>CuraÃ§ao</td>
-                  <td>Sinaai-Waas</td>
-                  <td class="text-center">$23,789</td>
-                </tr>
-                <tr>
-                  <td>Sage Rodriguez</td>
-                  <td>Netherlands</td>
-                  <td>Baileux</td>
-                  <td class="text-center">$56,142</td>
-                </tr>
-                <tr>
-                  <td>Philip Chaney</td>
-                  <td>Korea, South</td>
-                  <td>Overland Park</td>
-                  <td class="text-center">$38,735</td>
-                </tr>
-                <tr>
-                  <td>Doris Greene</td>
-                  <td>Malawi</td>
-                  <td>Feldkirchen in KÃ¤rnten</td>
-                  <td class="text-center">$63,542</td>
-                </tr>
-                <tr>
-                  <td>Mason Porter</td>
-                  <td>Chile</td>
-                  <td>Gloucester</td>
-                  <td class="text-center">$78,615</td>
-                </tr>
-                <tr>
-                  <td>Jon Porter</td>
-                  <td>Portugal</td>
-                  <td>Gloucester</td>
-                  <td class="text-center">$98,615</td>
-                </tr>
+                <ng-container *ngIf="!!itemList?.length; then thenTemplate; else elseTemplate"></ng-container>
+                <ng-template #thenTemplate>
+                  <tr *ngFor="let item of itemList | filterBy: {$or: {first_name: searchFilter.name, other_names: searchFilter.name}}; let i=index">
+                    <td>{{i + 1}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item"
+                          (click)="updateOne(item)">
+                          <i class="tim-icons icon-pencil"></i>
+                        </a>
+                        <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item"
+                          (click)="removeOne(item)">
+                          <i class="tim-icons icon-simple-remove"></i>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template #elseTemplate>
+                  <tr>
+                    <td colspan="4" class="text-center">No Items Found</td>
+                  </tr>
+                </ng-template>
+
               </tbody>
             </table>
           </div>

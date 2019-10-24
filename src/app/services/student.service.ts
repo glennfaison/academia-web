@@ -5,12 +5,12 @@ import { CrudService } from './crud.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService extends CrudService {
+export class StudentService extends CrudService {
 
   constructor(
     protected httpSvc: HttpService,
   ) {
-    super(httpSvc, 'courses');
+    super(httpSvc, 'students');
   }
 
 }

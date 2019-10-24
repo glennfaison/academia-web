@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -29,6 +31,8 @@ import { CoursesComponent } from 'src/app/pages/courses/courses.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
+    FilterPipeModule,
+    NgxDatatableModule,
   ],
   declarations: [
     DashboardComponent,

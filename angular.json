@@ -30,7 +30,12 @@
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
               "src/assets/scss/black-dashboard.scss",
-              "src/assets/css/nucleo-icons.css"
+              "src/assets/css/nucleo-icons.css",
+              "node_modules/@swimlane/ngx-datatable/release/index.css",
+              "node_modules/@swimlane/ngx-datatable/release/themes/material.css",
+              "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
+              "node_modules/@swimlane/ngx-datatable/release/themes/dark.css",
+              "node_modules/@swimlane/ngx-datatable/release/assets/icons.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

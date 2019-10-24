@@ -32,7 +32,7 @@
             <div class="d-flex flex-row justify-content-end">
               <div>
                 <label for="exampleInputEmail1"></label>
-                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)" (click)="addOne()">
+                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)" (click)="openAddModal()">
                   <i class="tim-icons icon-simple-add"></i>
                 </a>
               </div>
@@ -69,10 +69,10 @@
                 [cellClass]="'table-cell justify-content-end'">
                 <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
                   <div class="d-flex justify-content-end">
-                    <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item" (click)="updateOne(row)">
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item" (click)="openEditModal(row)">
                       <i class="tim-icons icon-pencil"></i>
                     </a>
-                    <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item" (click)="removeOne(row)">
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item" (click)="openDeleteModal(row)">
                       <i class="tim-icons icon-simple-remove"></i>
                     </a>
                   </div>

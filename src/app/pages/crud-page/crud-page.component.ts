@@ -2,6 +2,8 @@ import { OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { AlertService } from 'src/app/services/alert.service';
 import { CrudService } from 'src/app/services/crud.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GenericModalComponent } from './generic-modal/generic-modal.component';
 
 export class TableSettings {
   headerHeight: any = 42;
@@ -26,17 +28,37 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
 
   constructor(
     protected alerts: AlertService,
+    protected modalSvc: NgbModal,
     protected crudSvc: CrudService,
+    protected modal: typeof GenericModalComponent = GenericModalComponent,
   ) {
     this.refresh();
   }
 
-  async addOne(item: any): Promise<void> {
+  ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.datatable.columnMode = ColumnMode.force;
+  }
+
+  refresh() {
+    this.fetchItemList();
+    this.searchFilter = {};
+  }
+
+  async openAddModal() {
     try {
-      const newItem = await this.crudSvc.createOne(item);
-      this.itemList = [...this.itemList, newItem];
-    } catch (error) {
-      this.alerts.error(error);
+      const modalRef = this.modalSvc.open(this.modal, {
+        size: 'lg',
+        centered: false,
+        backdrop: true,
+      });
+      modalRef.componentInstance.title = 'Create Item';
+      const result = await modalRef.result;
+      const item = await this.crudSvc.createOne(result);
+      this.itemList = [...this.itemList, item];
+    } catch (err) {
+      this.alerts.error(err);
     }
   }
 
@@ -58,19 +80,35 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async updateOne(item: any): Promise<void> {
+  async openEditModal(item: any): Promise<void> {
     try {
-      const newItem = await this.crudSvc.updateOne(item);
+      const modalRef = this.modalSvc.open(this.modal, {
+        size: 'lg',
+        centered: false,
+        backdrop: true,
+      });
+      modalRef.componentInstance.title = 'Edit Item';
+      modalRef.componentInstance.item = item;
+      const result = await modalRef.result;
+      const newItem = await this.crudSvc.updateOne(result);
       const idx = this.itemList.findIndex(i => i.id === item.id);
-      this.itemList[idx] = newItem;
+      this.itemList[idx] = result;
       this.itemList = [...this.itemList];
     } catch (error) {
       this.alerts.error(error);
     }
   }
 
-  async removeOne(item: any): Promise<void> {
+  async openDeleteModal(item: any): Promise<void> {
     try {
+      const modalRef = this.modalSvc.open(GenericModalComponent, {
+        // size: 'lg',
+        centered: false,
+        backdrop: true,
+      });
+      modalRef.componentInstance.title = 'Delete Item?';
+      modalRef.componentInstance.message = 'Are you sure you want to delete this Item? This action cannot be undone';
+      await modalRef.result;
       await this.crudSvc.deleteOne(item.id);
       const idx = this.itemList.findIndex(i => i.id === item.id);
       this.itemList.splice(idx, 1);
@@ -80,14 +118,4 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngOnInit() { }
-
-  ngAfterViewInit() {
-    this.datatable.columnMode = ColumnMode.force;
-  }
-
-  refresh() {
-    this.fetchItemList();
-    this.searchFilter = {};
-  }
 }

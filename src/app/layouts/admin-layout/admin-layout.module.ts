@@ -23,6 +23,9 @@ import { InstructorsComponent } from 'src/app/pages/instructors/instructors.comp
 import { ClassroomsComponent } from 'src/app/pages/classrooms/classrooms.component';
 import { ExaminationsComponent } from 'src/app/pages/examinations/examinations.component';
 import { CoursesComponent } from 'src/app/pages/courses/courses.component';
+import { GenericModalComponent } from 'src/app/pages/crud-page/generic-modal/generic-modal.component';
+import { ExaminationModalComponent } from 'src/app/pages/examinations/examination-modal/examination-modal.component';
+
 
 @NgModule({
   imports: [
@@ -48,7 +51,13 @@ import { CoursesComponent } from 'src/app/pages/courses/courses.component';
     ClassroomsComponent,
     ExaminationsComponent,
     CoursesComponent,
+    GenericModalComponent,
+    ExaminationModalComponent,
     // RtlComponent,
-  ]
+  ],
+  entryComponents: [
+    GenericModalComponent,
+    ExaminationModalComponent,
+  ],
 })
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

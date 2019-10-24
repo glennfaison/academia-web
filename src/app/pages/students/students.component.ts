@@ -3,6 +3,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { Person } from 'src/app/models/person.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { CrudPageComponent } from '../crud-page/crud-page.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-students',
@@ -13,8 +14,9 @@ export class StudentsComponent extends CrudPageComponent {
 
   constructor(
     protected studentSvc: StudentService,
+    protected modalSvc: NgbModal,
     protected alerts: AlertService,
   ) {
-    super(alerts, studentSvc);
+    super(alerts, modalSvc, studentSvc);
   }
 }

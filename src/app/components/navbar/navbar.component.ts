@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,22 +27,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authSvc: AuthService,
   ) {
     this.location = location;
     this.sidebarVisible = false;
   }
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
-   updateColor = () => {
-   const navbar = document.getElementsByClassName('navbar')[0];
-   if (window.innerWidth < 993 && !this.isCollapsed) {
-       navbar.classList.add('bg-white');
-       navbar.classList.remove('navbar-transparent');
-     } else {
-       navbar.classList.remove('bg-white');
-       navbar.classList.add('navbar-transparent');
-     }
-   }
+  updateColor = () => {
+    const navbar = document.getElementsByClassName('navbar')[0];
+    if (window.innerWidth < 993 && !this.isCollapsed) {
+      navbar.classList.add('bg-white');
+      navbar.classList.remove('navbar-transparent');
+    } else {
+      navbar.classList.remove('bg-white');
+      navbar.classList.add('navbar-transparent');
+    }
+  }
   ngOnInit() {
     window.addEventListener('resize', this.updateColor);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
@@ -177,7 +179,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   open(content) {
-    this.modalService.open(content, {windowClass: 'modal-search'}).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'modal-search' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -190,10 +192,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
+
+  async logout() {
+    await this.authSvc.logout();
+    this.router.navigate(['login']);
+  }
+
   ngOnDestroy() {
-     window.removeEventListener('resize', this.updateColor);
+    window.removeEventListener('resize', this.updateColor);
   }
 }

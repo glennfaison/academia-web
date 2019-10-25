@@ -40,6 +40,13 @@ export class AuthService {
     }
   }
 
+  async logout(): Promise<void> {
+    try {
+      this.accessToken = null;
+      localStorage.removeItem('academia-jwt');
+    } catch (error) { throw error; }
+  }
+
   async getThisUser(): Promise<any> {
     try {
       const url = `${environment.apiRoot}/auth/me`;

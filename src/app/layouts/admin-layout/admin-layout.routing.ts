@@ -12,7 +12,7 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 export const AdminLayoutRoutes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full', },
       { path: 'my-profile', component: ProfileComponent, pathMatch: 'full', },

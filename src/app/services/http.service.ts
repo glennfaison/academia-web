@@ -20,8 +20,11 @@ export class HttpService {
   }
 
   private setOptions(withAuth: boolean) {
-    this.options.headers.append('Authorization', `Bearer ${this.accessToken}`);
-    this.options.headers.append('Content-Type', `application/json`);
+    this.options.headers = new HttpHeaders({
+      // tslint:disable-next-line:object-literal-key-quotes
+      'Authorization': `Bearer ${this.accessToken}`,
+      'Content-Type': `application/json`,
+    });
     if (withAuth && !this.accessToken) {
       throw new Error('No Access Token Found');
     }
@@ -31,7 +34,7 @@ export class HttpService {
     try {
       this.setOptions(withAuth);
       const params: string = new HttpParams(requestParams).toString();
-      const res = await this.http.get<any>(`${url}`, this.options).toPromise();
+      const res = await this.http.get<any>(`${url}?`, this.options).toPromise();
       if (!!res.error) { throw res; }
       return res;
     } catch (error) {

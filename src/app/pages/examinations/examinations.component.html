@@ -32,7 +32,8 @@
             <div class="d-flex flex-row justify-content-end">
               <div>
                 <label for="exampleInputEmail1"></label>
-                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)" (click)="openAddModal()">
+                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)"
+                  (click)="openAddModal()">
                   <i class="tim-icons icon-simple-add"></i>
                 </a>
               </div>
@@ -49,9 +50,9 @@
 
 
           <div class="table-responsive">
-            <ngx-datatable #datatable class="expandable" [rows]="itemList | filterBy: searchFilter" [limit]="tblStx.limit"
-              [columnMode]="tblStx.columnMode" [trackByProp]="'_id'" [loadingIndicator]="true" [headerHeight]="42"
-              [rowHeight]="46" [footerHeight]="42">
+            <ngx-datatable #datatable class="expandable" [rows]="itemList | filterBy: searchFilter"
+              [limit]="tblStx.limit" [columnMode]="tblStx.columnMode" [trackByProp]="'id'" [loadingIndicator]="true"
+              [headerHeight]="42" [rowHeight]="46" [footerHeight]="42">
 
               <ngx-datatable-column name="#" [flexGrow]="5" [headerClass]="'table-header justify-content-end'"
                 [cellClass]="'table-cell justify-content-end'">
@@ -69,10 +70,12 @@
                 [cellClass]="'table-cell justify-content-end'">
                 <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
                   <div class="d-flex justify-content-end">
-                    <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item" (click)="openEditModal(row)">
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item"
+                      (click)="openEditModal(row)">
                       <i class="tim-icons icon-pencil"></i>
                     </a>
-                    <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item" (click)="openDeleteModal(row)">
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item"
+                      (click)="openDeleteModal(row)">
                       <i class="tim-icons icon-simple-remove"></i>
                     </a>
                   </div>

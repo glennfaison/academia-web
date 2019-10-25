@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Examination } from 'src/app/models';
+import { Course } from 'src/app/models';
 import { GenericModalComponent } from '../../crud-page/generic-modal/generic-modal.component';
 
 @Component({
-  selector: 'app-examination-modal',
-  templateUrl: 'examination-modal.component.html'
+  selector: 'app-course-modal',
+  templateUrl: 'course-modal.component.html'
 })
-export class ExaminationModalComponent extends GenericModalComponent {
-  @Input() item: Examination = new Examination();
+export class CourseModalComponent extends GenericModalComponent {
+  @Input() item: Course = new Course();
 
   constructor(
     public activeModal: NgbActiveModal,

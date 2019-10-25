@@ -3,9 +3,9 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">List of Examinations</h4>
+          <h4 class="card-title">List of Courses</h4>
           <p class="category d-flex justify-content-between">
-            All examinations done in your school
+            All courses done in your school
           </p>
         </div>
         <div class="card-body">
@@ -14,21 +14,33 @@
           <hr class="mt-0" />
           <div class="d-flex flex-column flex-md-row justify-content-between">
             <div class="d-flex flex-column flex-md-row">
-              <!-- <div class="px-md-1">
-                  <label> Company (disabled) </label>
-                  <input class="form-control form-control-sm" disabled="" placeholder="Company" type="text"
-                    value="Creative Code Inc." />
-                </div> -->
               <div class="px-md-1">
                 <label> Name </label>
-                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.name" />
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.full_name" />
               </div>
+              <div class="px-md-1">
+                <label> Email </label>
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.email" />
+              </div>
+              <div class="px-md-1">
+                <label for="exampleInputEmail1"> Class </label>
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.classroom" />
+              </div>
+              <!-- <div class="px-md-1">
+                <label> Code </label>
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.code" />
+              </div>
+              <div class="px-md-1">
+                <label for="exampleInputEmail1"> Description </label>
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.description" />
+              </div> -->
             </div>
 
             <div class="d-flex flex-row justify-content-end">
               <div>
                 <label for="exampleInputEmail1"></label>
-                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)" (click)="addOne()">
+                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)"
+                  (click)="openAddModal()">
                   <i class="tim-icons icon-simple-add"></i>
                 </a>
               </div>
@@ -45,45 +57,52 @@
 
 
           <div class="table-responsive">
-            <table class="table tablesorter">
-              <thead class="text-primary">
-                <tr>
-                  <th>#</th>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th class="text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container *ngIf="!!itemList?.length; then thenTemplate; else elseTemplate"></ng-container>
-                <ng-template #thenTemplate>
-                  <tr *ngFor="let item of itemList | filterBy: {$or: {first_name: searchFilter.name, other_names: searchFilter.name}}; let i=index">
-                    <td>{{i + 1}}</td>
-                    <td>{{item.title}}</td>
-                    <td>{{item.description}}</td>
-                    <td>
-                      <div class="d-flex justify-content-end">
-                        <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item"
-                          (click)="updateOne(item)">
-                          <i class="tim-icons icon-pencil"></i>
-                        </a>
-                        <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item"
-                          (click)="removeOne(item)">
-                          <i class="tim-icons icon-simple-remove"></i>
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                </ng-template>
-                <ng-template #elseTemplate>
-                  <tr>
-                    <td colspan="4" class="text-center">No Items Found</td>
-                  </tr>
-                </ng-template>
+            <ngx-datatable #datatable class="expandable" [rows]="itemList | filterBy: searchFilter"
+              [limit]="tblStx.limit" [columnMode]="tblStx.columnMode" [trackByProp]="'id'" [loadingIndicator]="true"
+              [headerHeight]="42" [rowHeight]="46" [footerHeight]="42">
 
-              </tbody>
-            </table>
+              <ngx-datatable-column name="#" [flexGrow]="5" [headerClass]="'table-header justify-content-end'"
+                [cellClass]="'table-cell justify-content-end'">
+                <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span>{{rowIndex + 1}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="FULL NAME" prop="full_name" [flexGrow]="25" [headerClass]="'table-header'"
+                [cellClass]="'table-cell'">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="EMAIL" prop="email" [flexGrow]="25" [headerClass]="'table-header'"
+                [cellClass]="'table-cell'">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="AGE" prop="age" [flexGrow]="5" [headerClass]="'table-header'"
+                [cellClass]="'table-cell'">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="CLASS" prop="classroom.title" [flexGrow]="20" [headerClass]="'table-header'"
+                [cellClass]="'table-cell'">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="GENDER" prop="gender.symbol" [flexGrow]="7" [headerClass]="'table-header'"
+                [cellClass]="'table-cell'">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="ACTIONS" [flexGrow]="10" [headerClass]="'table-header justify-content-end'"
+                [cellClass]="'table-cell justify-content-end'">
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                  <div class="d-flex justify-content-end">
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item"
+                      (click)="openEditModal(row)">
+                      <i class="tim-icons icon-pencil"></i>
+                    </a>
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item"
+                      (click)="openDeleteModal(row)">
+                      <i class="tim-icons icon-simple-remove"></i>
+                    </a>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+
+            <ngx-datatable-footer></ngx-datatable-footer>
           </div>
+
+
         </div>
       </div>
     </div>

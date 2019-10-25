@@ -3,27 +3,35 @@
     <div class="mx-auto col-md-8">
       <div class="card">
         <div class="card-header">
-          <h1 class="text-center">Log In</h1>
+          <h1 class="text-center">Register</h1>
         </div>
         <div class="card-body">
-          <form>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="exampleInputEmail1"> Email address </label>
-                <input class="form-control" placeholder="mike@email.com" type="email" />
+          <form #form="ngForm" [noValidate]="false">
+
+            <div class="d-flex flex-column flex-md-row" *ngIf="errorMessage">
+              <div class="px-md-1 flex-fill text-center">
+                <label class="text-danger font-weight-bold"> {{ errorMessage }} </label>
               </div>
             </div>
-            <div class="col-12">
-              <div class="form-group">
-                <label for="exampleInputPassword"> Password </label>
-                <input class="form-control" placeholder="password" type="password" pattern=".+@.+\..+" />
+
+            <div class="d-flex flex-column flex-md-row">
+              <div class="px-md-1 flex-fill required">
+                <label> Username / Email Address </label>
+                <input class="form-control" type="email" name="email" ngModel #email="ngModel" required />
               </div>
             </div>
+            <div class="d-flex flex-column flex-md-row">
+              <div class="px-md-1 flex-fill required">
+                <label> Password </label>
+                <input class="form-control" type="password" name="password" ngModel #password="ngModel" required />
+              </div>
+            </div>
+
           </form>
         </div>
         <div class="card-footer">
           <div class="row">
-            <button class="btn btn-fill btn-danger mx-auto" type="submit">Log In</button>
+            <button class="btn btn-fill btn-danger mx-auto" (click)="onSubmit(form)" type="submit">Register</button>
           </div>
         </div>
       </div>

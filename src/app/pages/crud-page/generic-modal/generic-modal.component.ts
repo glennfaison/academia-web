@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: 'generic-modal.component.html'
 })
 export class GenericModalComponent {
+  [x: string]: any;
   @Input() title: any;
   @Input() message: any;
   @Input() item: any;

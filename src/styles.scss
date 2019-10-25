@@ -59,3 +59,13 @@ li.pages.active {
 li.disabled * {
   color: #7c757d;
 }
+
+/* For Forms */
+.required > label {
+  font-weight: bold;
+}
+.required > label:after {
+  color: #e32;
+  content: ' *';
+  display:inline;
+}

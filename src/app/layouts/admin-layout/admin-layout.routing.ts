@@ -9,11 +9,16 @@ import { ExaminationsComponent } from 'src/app/pages/examinations/examinations.c
 import { CoursesComponent } from 'src/app/pages/courses/courses.component';
 
 export const AdminLayoutRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, pathMatch: 'full', },
-  { path: 'my-profile', component: ProfileComponent, pathMatch: 'full', },
-  { path: 'students', component: StudentsComponent, pathMatch: 'full', },
-  { path: 'instructors', component: InstructorsComponent, pathMatch: 'full', },
-  { path: 'classrooms', component: ClassroomsComponent, pathMatch: 'full', },
-  { path: 'examinations', component: ExaminationsComponent, pathMatch: 'full', },
-  { path: 'courses', component: CoursesComponent, pathMatch: 'full', },
+  {
+    path: '',
+    children: [
+      { path: 'dashboard', component: DashboardComponent, pathMatch: 'full', },
+      { path: 'my-profile', component: ProfileComponent, pathMatch: 'full', },
+      { path: 'students', component: StudentsComponent, pathMatch: 'full', },
+      { path: 'instructors', component: InstructorsComponent, pathMatch: 'full', },
+      { path: 'classrooms', component: ClassroomsComponent, pathMatch: 'full', },
+      { path: 'examinations', component: ExaminationsComponent, pathMatch: 'full', },
+      { path: 'courses', component: CoursesComponent, pathMatch: 'full', },
+    ],
+  },
 ];

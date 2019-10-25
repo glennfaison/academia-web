@@ -26,6 +26,7 @@ import { CoursesComponent } from 'src/app/pages/courses/courses.component';
 import { GenericModalComponent } from 'src/app/pages/crud-page/generic-modal/generic-modal.component';
 import { ExaminationModalComponent } from 'src/app/pages/examinations/examination-modal/examination-modal.component';
 import { CourseModalComponent } from 'src/app/pages/courses/course-modal/course-modal.component';
+import { ClassroomModalComponent } from 'src/app/pages/classrooms/classroom-modal/classroom-modal.component';
 
 
 @NgModule({
@@ -55,12 +56,14 @@ import { CourseModalComponent } from 'src/app/pages/courses/course-modal/course-
     GenericModalComponent,
     ExaminationModalComponent,
     CourseModalComponent,
+    ClassroomModalComponent,
     // RtlComponent,
   ],
   entryComponents: [
     GenericModalComponent,
     ExaminationModalComponent,
     CourseModalComponent,
+    ClassroomModalComponent,
   ],
 })
 export class AdminLayoutModule { }

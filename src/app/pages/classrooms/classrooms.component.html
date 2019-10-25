@@ -3,66 +3,90 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">List of Classrooms</h4>
-          <p class="category">All classrooms studying in your school</p>
+          <h4 class="card-title">List of Examinations</h4>
+          <p class="category d-flex justify-content-between">
+            All examinations done in your school
+          </p>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table tablesorter" id="">
-              <thead class="text-primary">
-                <tr>
-                  <th>Name</th>
-                  <th>Country</th>
-                  <th>City</th>
-                  <th class="text-center">Salary</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Dakota Rice</td>
-                  <td>Niger</td>
-                  <td>Oud-Turnhout</td>
-                  <td class="text-center">$36,738</td>
-                </tr>
-                <tr>
-                  <td>Minerva Hooper</td>
-                  <td>CuraÃ§ao</td>
-                  <td>Sinaai-Waas</td>
-                  <td class="text-center">$23,789</td>
-                </tr>
-                <tr>
-                  <td>Sage Rodriguez</td>
-                  <td>Netherlands</td>
-                  <td>Baileux</td>
-                  <td class="text-center">$56,142</td>
-                </tr>
-                <tr>
-                  <td>Philip Chaney</td>
-                  <td>Korea, South</td>
-                  <td>Overland Park</td>
-                  <td class="text-center">$38,735</td>
-                </tr>
-                <tr>
-                  <td>Doris Greene</td>
-                  <td>Malawi</td>
-                  <td>Feldkirchen in KÃ¤rnten</td>
-                  <td class="text-center">$63,542</td>
-                </tr>
-                <tr>
-                  <td>Mason Porter</td>
-                  <td>Chile</td>
-                  <td>Gloucester</td>
-                  <td class="text-center">$78,615</td>
-                </tr>
-                <tr>
-                  <td>Jon Porter</td>
-                  <td>Portugal</td>
-                  <td>Gloucester</td>
-                  <td class="text-center">$98,615</td>
-                </tr>
-              </tbody>
-            </table>
+
+
+          <hr class="mt-0" />
+          <div class="d-flex flex-column flex-md-row justify-content-between">
+            <div class="d-flex flex-column flex-md-row">
+              <!-- <div class="px-md-1">
+                <label> Company (disabled) </label>
+                <input class="form-control form-control-sm" disabled="" placeholder="Company" type="text"
+                  value="Creative Code Inc." />
+              </div> -->
+              <div class="px-md-1">
+                <label> Title </label>
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.title" />
+              </div>
+              <div class="px-md-1">
+                <label for="exampleInputEmail1"> Level </label>
+                <input class="form-control form-control-sm" type="number" [(ngModel)]="searchFilter.level" />
+              </div>
+            </div>
+
+            <div class="d-flex flex-row justify-content-end">
+              <div>
+                <label for="exampleInputEmail1"></label>
+                <a class="d-block btn-sm text-dark pr-0" title="Add Item" href="javascript:void(0)"
+                  (click)="openAddModal()">
+                  <i class="tim-icons icon-simple-add"></i>
+                </a>
+              </div>
+              <div>
+                <label for="exampleInputEmail1"></label>
+                <a class="d-block btn-sm text-dark pr-0" title="Refresh List" href="javascript:void(0)"
+                  (click)="refresh()">
+                  <i class="tim-icons icon-refresh-02"></i>
+                </a>
+              </div>
+            </div>
           </div>
+          <hr class="mb-0" />
+
+
+          <div class="table-responsive">
+            <ngx-datatable #datatable class="expandable" [rows]="itemList | filterBy: searchFilter"
+              [limit]="tblStx.limit" [columnMode]="tblStx.columnMode" [trackByProp]="'id'" [loadingIndicator]="true"
+              [headerHeight]="42" [rowHeight]="46" [footerHeight]="42">
+
+              <ngx-datatable-column name="#" [flexGrow]="5" [headerClass]="'table-header justify-content-end'"
+                [cellClass]="'table-cell justify-content-end'">
+                <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span>{{rowIndex + 1}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="TITLE" prop="title" [flexGrow]="50" [headerClass]="'table-header'"
+                [cellClass]="'table-cell'">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="LEVEL" prop="level" [flexGrow]="30" [headerClass]="'table-header'"
+                [cellClass]="'table-cell'">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="ACTIONS" [flexGrow]="15" [headerClass]="'table-header justify-content-end'"
+                [cellClass]="'table-cell justify-content-end'">
+                <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                  <div class="d-flex justify-content-end">
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item"
+                      (click)="openEditModal(row)">
+                      <i class="tim-icons icon-pencil"></i>
+                    </a>
+                    <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item"
+                      (click)="openDeleteModal(row)">
+                      <i class="tim-icons icon-simple-remove"></i>
+                    </a>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+
+            <ngx-datatable-footer></ngx-datatable-footer>
+          </div>
+
+
         </div>
       </div>
     </div>

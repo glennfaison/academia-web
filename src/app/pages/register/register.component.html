@@ -68,10 +68,12 @@
 
           </form>
         </div>
-        <div class="card-footer">
+        <div class="card-footer text-center">
           <div class="row">
             <button class="btn btn-fill btn-danger mx-auto" (click)="onSubmit(form)" type="submit">Register</button>
           </div>
+          <hr/>
+          <small>Already have an account? <a [routerLink]="['/login']">Log in</a>.</small>
         </div>
       </div>
     </div>

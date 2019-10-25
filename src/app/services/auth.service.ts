@@ -6,18 +6,20 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  thisUser: any;
-  accessToken: any;
+  static thisUser: any;
+  static accessToken: any;
 
   constructor(
     private httpSvc: HttpService,
   ) {
-    if (!this.accessToken) { this.accessToken = localStorage.getItem('academia-jwt'); }
+    if (!AuthService.accessToken) {
+      AuthService.accessToken = localStorage.getItem('academia-jwt');
+    }
   }
 
-  async register(user: any): Promise<void> {
+  async instructorRegister(user: any): Promise<void> {
     try {
-      const url = `${environment.apiRoot}/auth/signup`;
+      const url = `${environment.apiRoot}/auth/instructor-registration`;
       const res = await this.httpSvc.post(url, user, false);
       if (!!res.error) { throw res; }
     } catch (error) {
@@ -25,15 +27,15 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<any> {
+  async instructorLogin(email: string, password: string): Promise<any> {
     try {
-      const url = `${environment.apiRoot}/auth/login`;
+      const url = `${environment.apiRoot}/auth/instructor-login`;
       const res = await this.httpSvc.post(url, { email, password }, false);
       if (!!res.error) { throw res; }
       const { user, jwt } = res;
-      this.accessToken = jwt;
+      AuthService.accessToken = jwt;
       localStorage.setItem('academia-jwt', jwt);
-      this.thisUser = user;
+      await this.getThisUser();
       return user;
     } catch (error) {
       throw error;
@@ -42,7 +44,7 @@ export class AuthService {
 
   async logout(): Promise<void> {
     try {
-      this.accessToken = null;
+      AuthService.accessToken = null;
       localStorage.removeItem('academia-jwt');
     } catch (error) { throw error; }
   }
@@ -52,7 +54,7 @@ export class AuthService {
       const url = `${environment.apiRoot}/auth/me`;
       const res = await this.httpSvc.get(url, {}, false);
       if (!!res.error) { throw res; }
-      this.thisUser = res;
+      AuthService.thisUser = res;
       return res;
     } catch (error) {
       throw error;

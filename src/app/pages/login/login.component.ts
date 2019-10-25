@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +16,22 @@ export class LoginComponent implements OnInit {
 
   constructor(
     protected authSvc: AuthService,
+    protected alerts: AlertService,
+    protected router: Router,
   ) { }
 
   ngOnInit() { }
 
   async onSubmit(form: NgForm) {
-    if (!this.validate(form)) { return; }
-    console.log(form.valid);
-    console.log(form.valueChanges);
-    console.log(form.value);
-    console.log(form.value.first_name);
+    try {
+      if (!this.validate(form)) { return; }
+      const { email, password } = form.value;
+      await this.authSvc.instructorLogin(email, password);
+      this.alerts.success('Successfully logged in');
+      this.router.navigate(['dashboard']);
+    } catch (error) {
+      this.alerts.error(error);
+    }
   }
 
   validate(form: NgForm): boolean {

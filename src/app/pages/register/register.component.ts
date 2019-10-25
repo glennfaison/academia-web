@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Student, Instructor, Gender } from 'src/app/models';
+import { Gender } from 'src/app/models';
 import { GenderService } from 'src/app/services/gender.service';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +20,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     protected authSvc: AuthService,
     protected genderSvc: GenderService,
+    protected alerts: AlertService,
+    protected router: Router,
   ) {
     this.fetchGenders();
   }
@@ -29,11 +33,14 @@ export class RegisterComponent implements OnInit {
   }
 
   async onSubmit(form: NgForm) {
-    if (!this.validate(form)) { return; }
-    console.log(form.valid);
-    console.log(form.valueChanges);
-    console.log(form.value);
-    console.log(form.value.first_name);
+    try {
+      if (!this.validate(form)) { return; }
+      await this.authSvc.instructorRegister(form.value);
+      this.alerts.success('Successfully registered!');
+      this.router.navigate(['login']);
+    } catch (error) {
+      this.alerts.error(error);
+    }
   }
 
   validate(form: NgForm): boolean {

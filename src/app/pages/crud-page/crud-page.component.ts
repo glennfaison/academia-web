@@ -68,8 +68,11 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
   async fetchItemList(): Promise<void> {
     try {
       const res: any[] = await this.crudSvc.fetchMany();
-      if (!Array.isArray(res)) { throw res; }
-      this.itemList = res || [];
+      if (!Array.isArray(res)) {
+        this.itemList = [];
+        throw res;
+      }
+      this.itemList = res;
     } catch (error) {
       this.alerts.error(HttpService.findHttpError(error));
     }

@@ -20,8 +20,16 @@ export class HttpService {
   };
 
   static findHttpError(error: any): string {
-    return (error && error.error && error.error.message) ||
-      (error && error.message) || error instanceof String ? error : 'Oops! There was an error.';
+    let errorMessage = 'Oops! An error occured.';
+    if (typeof error === typeof errorMessage) { errorMessage = error; }
+    try {
+      if (typeof error.message === typeof errorMessage) { errorMessage = error.message; }
+      if (typeof error.error === typeof errorMessage) { errorMessage = error.error; }
+      if (typeof error.error.message === typeof errorMessage) { errorMessage = error.error.message; }
+      if (typeof error.error.message.inner === typeof errorMessage) { errorMessage = error.error.message.inner; }
+      if (typeof error.error.message.inner.message === typeof errorMessage) { errorMessage = error.error.message.inner.message; }
+    } catch (e) { }
+    return errorMessage;
   }
 
   private setOptions(withAuth: boolean) {

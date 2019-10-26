@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoginModalComponent } from 'src/app/components/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -27,8 +28,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    private modalService: NgbModal,
+    private modalSvc: NgbModal,
     private authSvc: AuthService,
+    protected route: ActivatedRoute,
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -178,7 +180,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   open(content) {
-    this.modalService.open(content, { windowClass: 'modal-search' }).result.then((result) => {
+    this.modalSvc.open(content, { windowClass: 'modal-search' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -198,6 +200,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
   async logout() {
     await this.authSvc.logout();
     this.router.navigate(['login']);
+  }
+
+  async lockScreen() {
+    const path = this.route.snapshot.toString();
+    const { email, username } = AuthService.thisUser;
+    const modalRef = this.modalSvc.open(LoginModalComponent, {
+      centered: false,
+      backdrop: 'static',
+    });
+    modalRef.componentInstance.successRedirectPath = path;
+    modalRef.componentInstance.failureRedirectPath = '/login';
+    modalRef.componentInstance.emailOrUsername = email || username;
+    // await this.authSvc.logout();
+    try {
+      await modalRef.result;
+    } catch (e) { }
   }
 
   ngOnDestroy() {

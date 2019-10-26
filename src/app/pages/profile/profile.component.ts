@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GenderService } from 'src/app/services/gender.service';
 import { Instructor, Gender } from 'src/app/models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginModalComponent } from '../../components/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +22,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private genderSvc: GenderService,
+    private modalSvc: NgbModal,
   ) {
     this.fetchGenders();
   }
@@ -38,5 +41,9 @@ export class ProfileComponent implements OnInit {
   setEditableFalse() {
     this.isEditable = false;
     this.showPasswordSection = false;
+    const modalRef = this.modalSvc.open(LoginModalComponent, {
+      centered: false,
+      backdrop: true,
+    });
   }
 }

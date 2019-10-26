@@ -20,11 +20,13 @@ export class HttpService {
   }
 
   private setOptions(withAuth: boolean) {
-    this.options.headers = new HttpHeaders({
-      // tslint:disable-next-line:object-literal-key-quotes
-      'Authorization': `Bearer ${this.accessToken}`,
-      'Content-Type': `application/json`,
-    });
+    if (withAuth) {
+      this.options.headers = new HttpHeaders({
+        // tslint:disable-next-line:object-literal-key-quotes
+        'Authorization': `Bearer ${this.accessToken}`,
+        'Content-Type': `application/json`,
+      });
+    }
     if (withAuth && !this.accessToken) {
       throw new Error('No Access Token Found');
     }

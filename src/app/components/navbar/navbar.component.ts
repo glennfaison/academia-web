@@ -92,9 +92,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   sidebarClose() {
     const html = document.getElementsByTagName('html')[0];
     this.toggleButton.classList.remove('toggled');
-    const mainPanel = (
-      document.getElementsByClassName('main-panel')[0]
-    ) as HTMLElement;
+    const mainPanel = (document.getElementsByClassName('main-panel')[0]) as HTMLElement;
 
     if (window.innerWidth < 991) {
       setTimeout(() => {

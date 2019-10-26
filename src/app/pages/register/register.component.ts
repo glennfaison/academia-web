@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Router } from '@angular/router';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +30,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit() { }
 
   async fetchGenders() {
-    this.genders = await this.genderSvc.fetchMany();
+    try {
+      this.genders = await this.genderSvc.fetchMany();
+    } catch (error) {
+      this.alerts.error(HttpService.findHttpError(error));
+    }
   }
 
   async onSubmit(form: NgForm) {
@@ -39,7 +44,7 @@ export class RegisterComponent implements OnInit {
       this.alerts.success('Successfully registered!');
       this.router.navigate(['login']);
     } catch (error) {
-      this.alerts.error(error);
+      this.alerts.error(HttpService.findHttpError(error));
     }
   }
 

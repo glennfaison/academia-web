@@ -28,7 +28,7 @@ export abstract class CrudService {
     try {
       const url = `${environment.apiRoot}/${this.apiEndpoint}`;
       const res = await this.httpSvc.get(url, {}, true);
-      if (!!res.error) { throw res; }
+      if (!!res.error || !Array.isArray(res)) { throw res; }
       return res;
     } catch (error) {
       throw error;

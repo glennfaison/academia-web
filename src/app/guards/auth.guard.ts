@@ -18,6 +18,10 @@ export class AuthGuard implements CanActivateChild {
 
   canActivateChild(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!!AuthService.thisUser && !!AuthService.accessToken) { return true; }
+    if (!!AuthService.thisUser) {
+      this.logInAndNavigateToRoute();
+      return false;
+    }
     this.fetchCurrentUserAndNavigateToRoute();
     return false;
   }
@@ -31,6 +35,21 @@ export class AuthGuard implements CanActivateChild {
     AuthGuard.pathToReload = path;
     await this.authSvc.getThisUser();
     this.router.navigate([path]);
+  }
+
+  async logInAndNavigateToRoute() {
+    const path = this.route.snapshot.toString();
+    if (AuthGuard.pathToReload === path) {
+      AuthGuard.pathToReload = null;
+      return;
+     }
+    AuthGuard.pathToReload = path;
+    const { email, username } = AuthService.thisUser;
+    /*
+    - Show login dialog with email/username filled, prompting for password
+    - On login success, navigate to AuthGuard.pathToReload
+    - On login failure, navigate to login screen
+     */
   }
 
 }

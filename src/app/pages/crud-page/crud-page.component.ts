@@ -55,11 +55,13 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
         backdrop: true,
       });
       modalRef.componentInstance.title = 'Create Item';
-      const result = await modalRef.result;
-      const item = await this.crudSvc.createOne(result);
-      this.itemList = [...this.itemList, item];
-    } catch (err) {
-      this.alerts.error(err);
+      try {
+        const result = await modalRef.result;
+        const item = await this.crudSvc.createOne(result);
+        this.itemList = [...this.itemList, item];
+      } catch (e) { }
+    } catch (error) {
+      this.alerts.error(HttpService.findHttpError(error));
     }
   }
 
@@ -90,11 +92,13 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
       });
       modalRef.componentInstance.title = 'Edit Item';
       modalRef.componentInstance.item = item;
-      const result = await modalRef.result;
-      const newItem = await this.crudSvc.updateOne(result);
-      const idx = this.itemList.findIndex(i => i.id === item.id);
-      this.itemList[idx] = result;
-      this.itemList = [...this.itemList];
+      try {
+        const result = await modalRef.result;
+        await this.crudSvc.updateOne(result);
+        const idx = this.itemList.findIndex(i => i.id === item.id);
+        this.itemList[idx] = result;
+        this.itemList = [...this.itemList];
+      } catch (e) { }
     } catch (error) {
       this.alerts.error(HttpService.findHttpError(error));
     }
@@ -109,11 +113,13 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
       });
       modalRef.componentInstance.title = 'Delete Item?';
       modalRef.componentInstance.message = 'Are you sure you want to delete this Item? This action cannot be undone';
-      await modalRef.result;
-      await this.crudSvc.deleteOne(item.id);
-      const idx = this.itemList.findIndex(i => i.id === item.id);
-      this.itemList.splice(idx, 1);
-      this.itemList = [...this.itemList];
+      try {
+        await modalRef.result;
+        await this.crudSvc.deleteOne(item.id);
+        const idx = this.itemList.findIndex(i => i.id === item.id);
+        this.itemList.splice(idx, 1);
+        this.itemList = [...this.itemList];
+      } catch (e) { }
     } catch (error) {
       this.alerts.error(HttpService.findHttpError(error));
     }

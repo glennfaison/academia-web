@@ -21,7 +21,7 @@ export class HttpService {
 
   static findHttpError(error: any): string {
     return (error && error.error && error.error.message) ||
-      (error && error.message) || 'Oops! There was an error.';
+      (error && error.message) || error instanceof String ? error : 'Oops! There was an error.';
   }
 
   private setOptions(withAuth: boolean) {

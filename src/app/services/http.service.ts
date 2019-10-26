@@ -6,6 +6,12 @@ import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class HttpService {
 
+  constructor(
+    private http: HttpClient,
+  ) {
+    if (!this.accessToken) { this.accessToken = localStorage.getItem('academia-jwt'); }
+  }
+
   private accessToken: any;
   private options = {
     headers: new HttpHeaders({
@@ -13,10 +19,9 @@ export class HttpService {
     })
   };
 
-  constructor(
-    private http: HttpClient,
-  ) {
-    if (!this.accessToken) { this.accessToken = localStorage.getItem('academia-jwt'); }
+  static findHttpError(error: any): string {
+    return (error && error.error && error.error.message) ||
+      (error && error.message) || 'Oops! There was an error.';
   }
 
   private setOptions(withAuth: boolean) {
@@ -78,4 +83,5 @@ export class HttpService {
       return error;
     }
   }
+
 }

@@ -96,6 +96,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     if (window.innerWidth < 991) {
       setTimeout(() => {
+        if (!mainPanel || !mainPanel.style) { return; }
         mainPanel.style.position = '';
       }, 500);
     }

@@ -4,6 +4,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { CrudService } from 'src/app/services/crud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenericModalComponent } from './generic-modal/generic-modal.component';
+import { HttpService } from 'src/app/services/http.service';
 
 export class TableSettings {
   headerHeight: any = 42;
@@ -68,7 +69,7 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
       if (!Array.isArray(res)) { throw res; }
       this.itemList = res || [];
     } catch (error) {
-      this.alerts.error(error);
+      this.alerts.error(HttpService.findHttpError(error));
     }
   }
 
@@ -76,7 +77,7 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
     try {
       return await this.crudSvc.fetchOne(id);
     } catch (error) {
-      this.alerts.error(error);
+      this.alerts.error(HttpService.findHttpError(error));
     }
   }
 
@@ -95,7 +96,7 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
       this.itemList[idx] = result;
       this.itemList = [...this.itemList];
     } catch (error) {
-      this.alerts.error(error);
+      this.alerts.error(HttpService.findHttpError(error));
     }
   }
 
@@ -114,7 +115,7 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
       this.itemList.splice(idx, 1);
       this.itemList = [...this.itemList];
     } catch (error) {
-      this.alerts.error(error);
+      this.alerts.error(HttpService.findHttpError(error));
     }
   }
 

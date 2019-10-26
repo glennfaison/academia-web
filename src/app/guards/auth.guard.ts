@@ -8,6 +8,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthGuard implements CanActivateChild {
 
+  static pathToReload: string;
+
   constructor(
     protected authSvc: AuthService,
     protected router: Router,
@@ -16,12 +18,17 @@ export class AuthGuard implements CanActivateChild {
 
   canActivateChild(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!!AuthService.thisUser && !!AuthService.accessToken) { return true; }
-    const path = this.route.snapshot.toString();
-    this.fetchCurrentUserAndNavigateToRoute(path);
+    this.fetchCurrentUserAndNavigateToRoute();
     return false;
   }
 
-  async fetchCurrentUserAndNavigateToRoute(path: string) {
+  async fetchCurrentUserAndNavigateToRoute() {
+    const path = this.route.snapshot.toString();
+    if (AuthGuard.pathToReload === path) {
+      AuthGuard.pathToReload = null;
+      return;
+     }
+    AuthGuard.pathToReload = path;
     await this.authSvc.getThisUser();
     this.router.navigate([path]);
   }

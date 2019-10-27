@@ -14,7 +14,7 @@ export class Instructor {
   date_of_birth: Date | NgbDate | string;
   public get age(): number {
     const today = new Date();
-    const birthday = new Date(this.date_of_birth);
+    const birthday = new Date(this.date_of_birth.toString());
     let age = today.getFullYear() - birthday.getFullYear();
     age = today.getMonth() >= birthday.getMonth() ? age : age - 1;
     age = today.getDate() >= birthday.getDate() ? age : age - 1;

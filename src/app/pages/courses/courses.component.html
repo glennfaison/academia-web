@@ -71,7 +71,7 @@
               <ngx-datatable-column name="INSTRUCTORS" [flexGrow]="15" [headerClass]="'table-header'"
                 [cellClass]="'table-cell'">
                 <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                  <a [href]="['#/instructors']">Instructors</a>
+                  <a [routerLink]="['/instructors']">Instructors</a>
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="ACTIONS" [flexGrow]="15" [headerClass]="'table-header justify-content-end'"

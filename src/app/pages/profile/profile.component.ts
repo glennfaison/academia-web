@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GenderService } from 'src/app/services/gender.service';
 import { Instructor, Gender } from 'src/app/models';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginModalComponent } from '../../components/login-modal/login-modal.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -10,27 +10,34 @@ import { LoginModalComponent } from '../../components/login-modal/login-modal.co
 })
 export class ProfileComponent implements OnInit {
 
-  item: Instructor = new Instructor();
+  item: Instructor = new Instructor(AuthService.thisUser);
   genders: Gender[];
   isEditable = false;
   showPasswordSection = false;
-
 
   current_password: string;
   new_password: string;
   confirm_password: string;
 
   constructor(
+    protected authSvc: AuthService,
     private genderSvc: GenderService,
-    private modalSvc: NgbModal,
   ) {
     this.fetchGenders();
+    this.fetchThisUser();
   }
 
   ngOnInit() {}
 
   async fetchGenders() {
     this.genders = await this.genderSvc.fetchMany();
+  }
+
+  async fetchThisUser() {
+    this.item = await this.authSvc.getThisUser();
+    const date = new Date(this.item.date_of_birth.toString());
+    this.item.date_of_birth = new NgbDate(date.getFullYear(), date.getMonth(), date.getDate());
+    this.item = new Instructor(this.item);
   }
 
   setEditableTrue() {
@@ -41,9 +48,6 @@ export class ProfileComponent implements OnInit {
   setEditableFalse() {
     this.isEditable = false;
     this.showPasswordSection = false;
-    const modalRef = this.modalSvc.open(LoginModalComponent, {
-      centered: false,
-      backdrop: true,
-    });
   }
+
 }

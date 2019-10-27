@@ -39,7 +39,13 @@
             </div>
             <div class="px-md-1 flex-fill">
               <label> Date of Birth </label>
-              <input class="form-control" type="date" [(ngModel)]="item.date_of_birth" [disabled]="!isEditable" />
+              <div class="input-group">
+                <input class="form-control bg-white" placeholder="yyyy-mm-dd" pattern="\d{4}-\d{2}-\d{2}"
+                  [(ngModel)]="item.date_of_birth" ngbDatepicker #d="ngbDatepicker" [disabled]="!isEditable" />
+                <span class="input-group-addon" (click)="d.toggle()">
+                  <span class="tim-icons icon-calendar-60"></span>
+                </span>
+              </div>
             </div>
           </div>
           <div class="d-flex flex-column flex-md-row">
@@ -67,12 +73,10 @@
         </div>
         <div class="card-footer">
           <div *ngIf="!isEditable" class="d-flex justify-content-between">
-            <button class="btn btn-fill btn-info"
-              (click)="setEditableTrue()">
+            <button class="btn btn-fill btn-info" (click)="setEditableTrue()">
               Edit Profile
             </button>
-            <button *ngIf="!showPasswordSection" class="btn btn-fill btn-warning"
-              (click)="showPasswordSection = true">
+            <button *ngIf="!showPasswordSection" class="btn btn-fill btn-warning" (click)="showPasswordSection = true">
               Edit Password
             </button>
             <button *ngIf="!!showPasswordSection" class="btn btn-fill btn-warning"
@@ -82,12 +86,10 @@
           </div>
 
           <div *ngIf="!!isEditable" class="d-flex justify-content-between">
-            <button class="btn btn-fill btn-success"
-              (click)="setEditableFalse()">
+            <button class="btn btn-fill btn-success" (click)="setEditableFalse()">
               Cancel
             </button>
-            <button class="btn btn-fill btn-danger"
-              (click)="setEditableFalse()">
+            <button class="btn btn-fill btn-danger" (click)="setEditableFalse()">
               Save
             </button>
           </div>
@@ -104,9 +106,9 @@
             <div class="block block-three"></div>
             <div class="block block-four"></div>
             <a href="javascript:void(0)">
-              <img alt="..." class="avatar" src="assets/img/emilyz.jpg" />
+              <img alt="..." class="avatar" src="http://lorempixel.com/124/124/people" />
 
-              <h5 class="title">Mike Andrew</h5>
+              <h5 class="title">{{ item.full_name }}</h5>
             </a>
             <p class="description">Ceo/Co-Founder</p>
           </div>
@@ -119,7 +121,7 @@
         <div class="card-footer">
           <div class="button-container">
             <button class="btn btn-primary" href="javascript:void(0)">
-              Edit Profile Picture
+              Edit Picture
             </button>
           </div>
         </div>

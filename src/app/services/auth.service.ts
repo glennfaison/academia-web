@@ -14,7 +14,7 @@ export class AuthService {
   ) {
     if (!AuthService.accessToken) {
       AuthService.accessToken = localStorage.getItem('academia-jwt');
-      this.getThisUser();
+      if (!!AuthService.accessToken) { this.getThisUser(); }
     }
   }
 

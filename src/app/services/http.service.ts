@@ -41,15 +41,23 @@ export class HttpService {
       });
     }
     if (withAuth && !this.accessToken) {
-      throw new Error('No Access Token Found');
+      this.options.headers.delete('Authorization');
     }
+  }
+
+  private getQueryParamsFromObject(obj: any): string {
+    const params = new URLSearchParams();
+    for (const key in obj) {
+      if (!!obj[key]) { params.set(key, obj[key]); }
+    }
+    return params.toString();
   }
 
   async get(url: string, requestParams: object, withAuth: boolean = true): Promise<any> {
     try {
       this.setOptions(withAuth);
-      const params: string = new HttpParams(requestParams).toString();
-      const res = await this.http.get<any>(`${url}?`, this.options).toPromise();
+      const params: string = this.getQueryParamsFromObject(requestParams);
+      const res = await this.http.get<any>(`${url}?${params}`, this.options).toPromise();
       if (!!res.error) { throw res; }
       return res;
     } catch (error) {

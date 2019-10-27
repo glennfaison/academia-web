@@ -1,3 +1,5 @@
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+
 export class Student {
   [x: string]: any;
   id: number;
@@ -9,7 +11,7 @@ export class Student {
   username: string;
   email: string;
   password: string;
-  date_of_birth: Date;
+  date_of_birth: Date | NgbDate | string;
   public get age(): number {
     const today = new Date();
     const birthday = new Date(this.date_of_birth);

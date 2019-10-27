@@ -69,3 +69,24 @@ li.disabled * {
   content: ' *';
   display:inline;
 }
+
+.input-group > .input-group-addon {
+  position: absolute;
+  right: .5rem;
+  align-self: center;
+}
+
+.input-group > input:disabled + .input-group-addon {
+  background-color: #e9ecef !important;
+  display: none;
+}
+
+.input-group > input {
+  border-right: solid rgba(29, 37, 59, 0.5) 1px !important;
+  border-top-right-radius: .5rem !important;
+  border-bottom-right-radius: .5rem !important;
+}
+
+.input-group > input:disabled {
+  background-color: rgb(227, 227, 227) !important;
+}

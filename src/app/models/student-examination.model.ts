@@ -1,22 +1,19 @@
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Course, Sequence, Instructor } from '.';
-import { Classroom } from './classroom.model';
 
-export class Examination {
+export class StudentExamination {
   [x: string]: any;
   id?: number;
-  number_sat?: number;
-  number_passed?: number;
-  course_id?: number;
+  student_id?: number;
   sequence_id?: number;
-  supervisor_id?: number;
-  instructor_id?: number;
-  classroom_id?: number;
-  course?: Course;
+  examination_id?: number;
+  course_id?: number;
+  total_mark?: number;
+  score?: number;
+  student?: Instructor;
   sequence?: Sequence;
-  supervisor?: Instructor;
-  instructor?: Instructor;
-  classroom?: Classroom;
+  examination?: Sequence;
+  course?: Course;
   date_taken?: Date | NgbDate | string;
 
   constructor(obj: any = {}) {

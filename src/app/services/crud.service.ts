@@ -24,10 +24,10 @@ export abstract class CrudService {
     }
   }
 
-  async fetchMany(): Promise<any[]> {
+  async fetchMany(detailed = true): Promise<any[]> {
     try {
       const url = `${environment.apiRoot}/${this.apiEndpoint}`;
-      const res = await this.httpSvc.get(url, {}, true);
+      const res = await this.httpSvc.get(url, { }, true);
       if (!!res.error || !Array.isArray(res)) { throw res; }
       return res;
     } catch (error) {

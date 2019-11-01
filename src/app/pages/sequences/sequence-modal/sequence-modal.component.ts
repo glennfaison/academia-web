@@ -1,15 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Sequence } from 'src/app/models';
 import { GenericModalComponent } from '../../crud-page/generic-modal/generic-modal.component';
-import { Examination } from 'src/app/models/examination.model';
 
 @Component({
-  selector: 'app-examination-modal',
-  templateUrl: 'examination-modal.component.html'
+  selector: 'app-sequence-modal',
+  templateUrl: 'sequence-modal.component.html'
 })
-export class ExaminationModalComponent extends GenericModalComponent {
-
-  @Input() item: Examination = new Examination();
+export class SequenceModalComponent extends GenericModalComponent {
+  @Input() item: Sequence = new Sequence();
 
   constructor(
     public activeModal: NgbActiveModal,

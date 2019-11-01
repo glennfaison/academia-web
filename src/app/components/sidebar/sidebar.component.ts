@@ -33,14 +33,20 @@ export const ROUTES: RouteInfo[] = [
     class: ''
   },
   {
-    path: '/examinations',
-    title: 'Examinations',
+    path: '/sequences',
+    title: 'Sequences',
     icon: 'icon-paper',
     class: ''
   },
   {
     path: '/courses',
     title: 'Courses',
+    icon: 'icon-paper',
+    class: ''
+  },
+  {
+    path: '/examinations',
+    title: 'Examinations',
     icon: 'icon-paper',
     class: ''
   },

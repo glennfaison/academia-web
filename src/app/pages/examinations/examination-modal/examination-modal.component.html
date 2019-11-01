@@ -5,14 +5,53 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="form-group">
-    <label>Title</label>
-    <input type="text" [(ngModel)]="item.title" class="form-control"/>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="px-md-1 flex-fill required">
+      <label> First Name </label>
+      <input class="form-control" type="text" [(ngModel)]="item.first_name" required />
+    </div>
+    <div class="px-md-1 flex-fill required">
+      <label> Other Names </label>
+      <input class="form-control" type="text" [(ngModel)]="item.other_names" required />
+    </div>
   </div>
-  <div class="form-group">
-    <label>Description</label>
-    <textarea [(ngModel)]="item.description" class="form-control"></textarea>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="px-md-1 flex-fill">
+      <label> Username </label>
+      <input class="form-control" type="text" [(ngModel)]="item.username" />
+    </div>
+    <div class="px-md-1 flex-fill required">
+      <label> Email Address </label>
+      <input class="form-control" type="email" [(ngModel)]="item.email" required />
+    </div>
   </div>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="px-md-1 flex-fill required">
+      <label> Password </label>
+      <input class="form-control" type="password" [(ngModel)]="item.password" required />
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="px-md-1 flex-fill required">
+      <label> Gender </label>
+      <select class="form-control" [(ngModel)]="item.gender_id" required>
+        <option *ngFor="let gender of genders" class="form-control" [value]="gender.id">
+          {{ gender.name }}
+        </option>
+      </select>
+    </div>
+    <div class="px-md-1 flex-fill">
+      <label> Date of Birth </label>
+      <input class="form-control" type="date" [(ngModel)]="item.date_of_birth" />
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-md-row">
+    <div class="px-md-1 flex-fill">
+      <label> Place of Birth </label>
+      <input class="form-control" type="text" [(ngModel)]="item.place_of_birth" />
+    </div>
+  </div>
+
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-primary" (click)="activeModal.close(item)">Save</button>

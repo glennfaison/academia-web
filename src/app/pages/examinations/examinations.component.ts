@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ExaminationService } from 'src/app/services/examination.service';
-import { Examination } from 'src/app/models/examination.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { CrudPageComponent } from '../crud-page/crud-page.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Examination } from 'src/app/models/examination.model';
+import { ExaminationService } from 'src/app/services/examination.service';
 import { ExaminationModalComponent } from './examination-modal/examination-modal.component';
 
 @Component({
@@ -16,9 +16,14 @@ export class ExaminationsComponent extends CrudPageComponent {
   constructor(
     protected alerts: AlertService,
     protected modalSvc: NgbModal,
-    protected examSvc: ExaminationService,
+    protected writtenExamSvc: ExaminationService,
   ) {
-    super(alerts, modalSvc, examSvc, ExaminationModalComponent);
+    super(alerts, modalSvc, writtenExamSvc, ExaminationModalComponent);
+  }
+
+  async fetchItemList(): Promise<void> {
+    await super.fetchItemList();
+    this.itemList = this.itemList.map(i => new Examination(i));
   }
 
 }

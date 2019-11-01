@@ -5,9 +5,10 @@ import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { StudentsComponent } from 'src/app/pages/students/students.component';
 import { InstructorsComponent } from 'src/app/pages/instructors/instructors.component';
 import { ClassroomsComponent } from 'src/app/pages/classrooms/classrooms.component';
-import { ExaminationsComponent } from 'src/app/pages/examinations/examinations.component';
+import { SequencesComponent } from 'src/app/pages/sequences/sequences.component';
 import { CoursesComponent } from 'src/app/pages/courses/courses.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { ExaminationsComponent } from 'src/app/pages/examinations/examinations.component';
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -19,8 +20,9 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'students', component: StudentsComponent, pathMatch: 'full', },
       { path: 'instructors', component: InstructorsComponent, pathMatch: 'full', },
       { path: 'classrooms', component: ClassroomsComponent, pathMatch: 'full', },
-      { path: 'examinations', component: ExaminationsComponent, pathMatch: 'full', },
+      { path: 'sequences', component: SequencesComponent, pathMatch: 'full', },
       { path: 'courses', component: CoursesComponent, pathMatch: 'full', },
+      { path: 'examinations', component: ExaminationsComponent, pathMatch: 'full', },
     ],
   },
 ];

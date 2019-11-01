@@ -3,9 +3,9 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">List of Courses</h4>
+          <h4 class="card-title">List of Examinations</h4>
           <p class="category d-flex justify-content-between">
-            All courses done in your school
+            All examinations done in your school
           </p>
         </div>
         <div class="card-body">
@@ -14,26 +14,19 @@
           <hr class="mt-0" />
           <div class="d-flex flex-column flex-md-row justify-content-between">
             <div class="d-flex flex-column flex-md-row">
-              <div class="px-md-1">
-                <label> Name </label>
-                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.full_name" />
-              </div>
-              <div class="px-md-1">
-                <label> Email </label>
-                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.email" />
-              </div>
-              <div class="px-md-1">
-                <label for="exampleInputEmail1"> Class </label>
-                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.classroom" />
-              </div>
               <!-- <div class="px-md-1">
-                <label> Code </label>
-                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.code" />
+                <label> Company (disabled) </label>
+                <input class="form-control form-control-sm" disabled="" placeholder="Company" type="text"
+                  value="Creative Code Inc." />
+              </div> -->
+              <div class="px-md-1">
+                <label> Title </label>
+                <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.title" />
               </div>
               <div class="px-md-1">
                 <label for="exampleInputEmail1"> Description </label>
                 <input class="form-control form-control-sm" type="search" [(ngModel)]="searchFilter.description" />
-              </div> -->
+              </div>
             </div>
 
             <div class="d-flex flex-row justify-content-end">
@@ -67,33 +60,18 @@
                   <span>{{rowIndex + 1}}</span>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="COURSE" prop="course.title" [flexGrow]="20" [headerClass]="'table-header'"
+              <ngx-datatable-column name="TITLE" prop="title" [flexGrow]="30" [headerClass]="'table-header'"
                 [cellClass]="'table-cell'">
               </ngx-datatable-column>
-              <ngx-datatable-column name="SEQUENCE" prop="sequence.title" [flexGrow]="20" [headerClass]="'table-header'"
+              <ngx-datatable-column name="DESCRIPTION" prop="description" [flexGrow]="50" [headerClass]="'table-header'"
                 [cellClass]="'table-cell'">
               </ngx-datatable-column>
-              <ngx-datatable-column name="INSTRUCTOR" [flexGrow]="20" [headerClass]="'table-header'"
-                [cellClass]="'table-cell'">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  <span>{{ row.instructor?.first_name + ' ' + row.instructor?.other_names }}</span>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="CLASS" prop="classroom.title" [flexGrow]="20" [headerClass]="'table-header'"
-                [cellClass]="'table-cell'">
-              </ngx-datatable-column>
-              <ngx-datatable-column name="DATE" prop="date_taken" [flexGrow]="10" [headerClass]="'table-header'"
-                [cellClass]="'table-cell'">
-              </ngx-datatable-column>
-              <ngx-datatable-column name="ACTIONS" [flexGrow]="10" [headerClass]="'table-header justify-content-end'"
+              <ngx-datatable-column name="ACTIONS" [flexGrow]="15" [headerClass]="'table-header justify-content-end'"
                 [cellClass]="'table-cell justify-content-end'">
                 <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
                   <div class="d-flex justify-content-end">
                     <a class="px-1 text-default" href="javascript:void(0)" title="Edit Item"
                       (click)="openEditModal(row)">
-                      <i class="fas fa-eye"></i>
-                    </a>
-                    <a class="px-1 text-default" [routerLink]="['/class_results_sheet/', row.id]" title="Fill Results Sheet" >
                       <i class="tim-icons icon-pencil"></i>
                     </a>
                     <a class="px-1 text-default" href="javascript:void(0)" title="Remove Item"

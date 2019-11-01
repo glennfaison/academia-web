@@ -1,10 +1,10 @@
 import { OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-import { AlertService } from 'src/app/services/alert.service';
 import { CrudService } from 'src/app/services/crud.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenericModalComponent } from './generic-modal/generic-modal.component';
 import { HttpService } from 'src/app/services/http.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 export class TableSettings {
   headerHeight: any = 42;

@@ -9,10 +9,14 @@ export class HttpService {
   constructor(
     private http: HttpClient,
   ) {
-    if (!this.accessToken) { this.accessToken = localStorage.getItem('academia-jwt'); }
+    if (!this._accessToken) { this._accessToken = localStorage.getItem('academia-jwt'); }
   }
 
-  private accessToken: any;
+  private _accessToken: any;
+  set accessToken(value) {
+    this._accessToken = value;
+  }
+
   private options = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -36,11 +40,11 @@ export class HttpService {
     if (withAuth) {
       this.options.headers = new HttpHeaders({
         // tslint:disable-next-line:object-literal-key-quotes
-        'Authorization': `Bearer ${this.accessToken}`,
+        'Authorization': `Bearer ${this._accessToken}`,
         'Content-Type': `application/json`,
       });
     }
-    if (withAuth && !this.accessToken) {
+    if (withAuth && !this._accessToken) {
       this.options.headers.delete('Authorization');
     }
   }
@@ -76,10 +80,11 @@ export class HttpService {
     }
   }
 
-  async put(url: string, requestBody: object, withAuth: boolean = true): Promise<any> {
+  async put(url: string, searchParams: object, requestBody: object, withAuth: boolean = true): Promise<any> {
     try {
       this.setOptions(withAuth);
-      const res = await this.http.put<any>(`${url}`, requestBody, this.options).toPromise();
+      const params: string = this.getQueryParamsFromObject(searchParams);
+      const res = await this.http.put<any>(`${url}?${params}`, requestBody, this.options).toPromise();
       if (!!res.error) { throw res; }
       return res;
     } catch (error) {

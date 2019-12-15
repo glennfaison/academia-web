@@ -1,5 +1,5 @@
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { Course, Sequence, Instructor } from '.';
+import { Course, Sequence, Instructor, Examination } from '.';
 
 export class StudentExamination {
   [x: string]: any;
@@ -7,14 +7,13 @@ export class StudentExamination {
   student_id?: number;
   sequence_id?: number;
   examination_id?: number;
+  took_exam = false;
   course_id?: number;
-  total_mark?: number;
   score?: number;
   student?: Instructor;
   sequence?: Sequence;
-  examination?: Sequence;
+  examination?: Examination;
   course?: Course;
-  date_taken?: Date | NgbDate | string;
 
   constructor(obj: any = {}) {
     const keys = Object.keys(obj);

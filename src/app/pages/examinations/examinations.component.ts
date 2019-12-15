@@ -16,9 +16,9 @@ export class ExaminationsComponent extends CrudPageComponent {
   constructor(
     protected alerts: AlertService,
     protected modalSvc: NgbModal,
-    protected writtenExamSvc: ExaminationService,
+    protected examinationSvc: ExaminationService,
   ) {
-    super(alerts, modalSvc, writtenExamSvc, ExaminationModalComponent);
+    super(alerts, modalSvc, examinationSvc, ExaminationModalComponent);
   }
 
   async fetchItemList(): Promise<void> {

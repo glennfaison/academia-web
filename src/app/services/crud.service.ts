@@ -24,10 +24,10 @@ export abstract class CrudService {
     }
   }
 
-  async fetchMany(detailed = true): Promise<any[]> {
+  async fetchMany(searchParams: any = {}, detailed = true): Promise<any[]> {
     try {
       const url = `${environment.apiRoot}/${this.apiEndpoint}`;
-      const res = await this.httpSvc.get(url, { }, true);
+      const res = await this.httpSvc.get(url, searchParams, detailed);
       if (!!res.error || !Array.isArray(res)) { throw res; }
       return res;
     } catch (error) {
@@ -49,7 +49,18 @@ export abstract class CrudService {
   async updateOne(data: any): Promise<any> {
     try {
       const url = `${environment.apiRoot}/${this.apiEndpoint}/${data.id}`;
-      const res = await this.httpSvc.put(url, data, true);
+      const res = await this.httpSvc.put(url, {}, data, true);
+      if (!!res.error) { throw res; }
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateMany(searchParams: any = {}, data: any): Promise<any> {
+    try {
+      const url = `${environment.apiRoot}/${this.apiEndpoint}`;
+      const res = await this.httpSvc.put(url, searchParams, data, true);
       if (!!res.error) { throw res; }
       return res;
     } catch (error) {

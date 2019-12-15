@@ -22,6 +22,7 @@ export class TableSettings {
 
 
 export class CrudPageComponent implements OnInit, AfterViewInit {
+
   itemList: any[];
   searchFilter: any = {};
   tblStx: TableSettings = new TableSettings();
@@ -31,7 +32,7 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
     protected alerts: AlertService,
     protected modalSvc: NgbModal,
     protected crudSvc: CrudService,
-    protected modal: typeof GenericModalComponent = GenericModalComponent,
+    protected modal: any = GenericModalComponent,
   ) {
     this.refresh();
   }
@@ -47,18 +48,17 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
     this.searchFilter = {};
   }
 
-  async openAddModal() {
+  async openAddModal(modalTitle = 'Create Item') {
     try {
       const modalRef = this.modalSvc.open(this.modal, {
         size: 'lg',
         centered: false,
         backdrop: true,
       });
-      modalRef.componentInstance.title = 'Create Item';
+      modalRef.componentInstance.title = modalTitle;
       try {
         const result = await modalRef.result;
-        const item = await this.crudSvc.createOne(result);
-        this.itemList = [...this.itemList, item];
+        this.itemList = [...this.itemList, result];
       } catch (e) { }
     } catch (error) {
       this.alerts.error(HttpService.findHttpError(error));
@@ -86,18 +86,17 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async openEditModal(item: any): Promise<void> {
+  async openEditModal(item: any, modalTitle = 'Edit Item'): Promise<void> {
     try {
       const modalRef = this.modalSvc.open(this.modal, {
         size: 'lg',
         centered: false,
         backdrop: true,
       });
-      modalRef.componentInstance.title = 'Edit Item';
+      modalRef.componentInstance.title = modalTitle;
       modalRef.componentInstance.item = item;
       try {
         const result = await modalRef.result;
-        await this.crudSvc.updateOne(result);
         const idx = this.itemList.findIndex(i => i.id === item.id);
         this.itemList[idx] = result;
         this.itemList = [...this.itemList];
@@ -107,18 +106,21 @@ export class CrudPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async openDeleteModal(item: any): Promise<void> {
+  async openDeleteModal(
+    item: any,
+    modalTitle = 'Delete Item?',
+    message = 'Are you sure you want to delete this Item? This action cannot be undone'
+  ): Promise<void> {
     try {
       const modalRef = this.modalSvc.open(GenericModalComponent, {
         // size: 'lg',
         centered: false,
         backdrop: true,
       });
-      modalRef.componentInstance.title = 'Delete Item?';
-      modalRef.componentInstance.message = 'Are you sure you want to delete this Item? This action cannot be undone';
+      modalRef.componentInstance.title = modalTitle;
+      modalRef.componentInstance.message = message;
       try {
         await modalRef.result;
-        await this.crudSvc.deleteOne(item.id);
         const idx = this.itemList.findIndex(i => i.id === item.id);
         this.itemList.splice(idx, 1);
         this.itemList = [...this.itemList];

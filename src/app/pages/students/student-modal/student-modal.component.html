@@ -46,6 +46,14 @@
     </div>
   </div>
   <div class="d-flex flex-column flex-md-row">
+    <div class="px-md-1 flex-fill required">
+      <label> Classroom </label>
+      <select class="form-control" [(ngModel)]="item.classroom_id" required>
+        <option *ngFor="let classroom of classrooms" class="form-control" [value]="classroom.id">
+          {{ classroom.title }}
+        </option>
+      </select>
+    </div>
     <div class="px-md-1 flex-fill">
       <label> Place of Birth </label>
       <input class="form-control" type="text" [(ngModel)]="item.place_of_birth" />
@@ -54,5 +62,5 @@
 
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="activeModal.close(item)">Save</button>
+  <button type="button" class="btn btn-primary" (click)="submit()">Save</button>
 </div>

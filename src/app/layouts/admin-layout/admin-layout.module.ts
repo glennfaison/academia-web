@@ -24,6 +24,7 @@ import { StudentModalComponent } from 'src/app/pages/students/student-modal/stud
 import { InstructorModalComponent } from 'src/app/pages/instructors/instructor-modal/instructor-modal.component';
 import { ExaminationsComponent } from 'src/app/pages/examinations/examinations.component';
 import { ExaminationModalComponent } from 'src/app/pages/examinations/examination-modal/examination-modal.component';
+import { ClassResultsFormComponent } from 'src/app/pages/class-results-form/class-results-form.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { ExaminationModalComponent } from 'src/app/pages/examinations/examinatio
     InstructorModalComponent,
     ExaminationsComponent,
     ExaminationModalComponent,
+    ClassResultsFormComponent,
   ],
   entryComponents: [
     GenericModalComponent,

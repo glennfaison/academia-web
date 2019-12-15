@@ -9,6 +9,7 @@ import { SequencesComponent } from 'src/app/pages/sequences/sequences.component'
 import { CoursesComponent } from 'src/app/pages/courses/courses.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { ExaminationsComponent } from 'src/app/pages/examinations/examinations.component';
+import { ClassResultsFormComponent } from 'src/app/pages/class-results-form/class-results-form.component';
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -23,6 +24,12 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'sequences', component: SequencesComponent, pathMatch: 'full', },
       { path: 'courses', component: CoursesComponent, pathMatch: 'full', },
       { path: 'examinations', component: ExaminationsComponent, pathMatch: 'full', },
+      { path: 'class_results',
+        children: [
+          { path: ':id', component: ClassResultsFormComponent, pathMatch: 'full', },
+        ],
+      },
+      { path: '', pathMatch: 'prefix', redirectTo: 'dashboard', },
     ],
   },
 ];

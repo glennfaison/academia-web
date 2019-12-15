@@ -35,6 +35,7 @@ export class AuthService {
       if (!!res.error) { throw res; }
       const { user, jwt } = res;
       AuthService.accessToken = jwt;
+      this.httpSvc.accessToken = jwt;
       AuthService.thisUser = user;
       localStorage.setItem('academia-jwt', jwt);
       localStorage.setItem('academia-thisUser', JSON.stringify(user));

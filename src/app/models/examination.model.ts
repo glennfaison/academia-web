@@ -7,6 +7,7 @@ export class Examination {
   id?: number;
   number_sat?: number;
   number_passed?: number;
+  total_mark?: number;
   course_id?: number;
   sequence_id?: number;
   supervisor_id?: number;
@@ -19,15 +20,12 @@ export class Examination {
   classroom?: Classroom;
   date_taken?: Date | NgbDate | string;
 
-  constructor(obj: any = {}) {
+  constructor(obj: Partial<Examination> = {}) {
     const keys = Object.keys(obj);
     for (const key of keys) {
       if (!obj[key]) { continue; }
       this[key] = obj[key];
     }
   }
-
-
-
 
 }

@@ -47,13 +47,25 @@
   </div>
   <div class="d-flex flex-column flex-md-row">
     <div class="px-md-1 flex-fill required">
-      <label> Classroom </label>
-      <select class="form-control" [(ngModel)]="item.classroom_id" required>
-        <option *ngFor="let classroom of classrooms" class="form-control" [value]="classroom.id">
-          {{ classroom.title }}
-        </option>
-      </select>
+      <label> Classrooms </label>
+      <ng-multiselect-dropdown #classroomMultiselect
+        [data]="classrooms"
+        [placeholder]="'Select Classrooms'"
+        [settings]="multiselectSettings"
+        [(ngModel)]="item.classrooms">
+      </ng-multiselect-dropdown>
     </div>
+    <div class="px-md-1 flex-fill required">
+      <label> Courses Taught </label>
+      <ng-multiselect-dropdown #coursesMultiselect
+        [data]="courses"
+        [placeholder]="'Select Courses'"
+        [settings]="multiselectSettings"
+        [(ngModel)]="item.courses">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-md-row">
     <div class="px-md-1 flex-fill">
       <label> Place of Birth </label>
       <input class="form-control" type="text" [(ngModel)]="item.place_of_birth" />

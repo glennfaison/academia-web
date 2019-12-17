@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Instructor, Gender, Classroom } from 'src/app/models';
+import { Instructor, Gender, Classroom, Course } from 'src/app/models';
 import { GenericModalComponent } from '../../crud-page/generic-modal/generic-modal.component';
 import { GenderService } from 'src/app/services/gender.service';
 import { InstructorService } from 'src/app/services/instructor.service';
 import { ClassroomService } from 'src/app/services/classroom.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { CourseService } from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-instructor-modal',
@@ -17,17 +19,30 @@ export class InstructorModalComponent implements OnInit {
   @Input() action: 'create' | 'edit' | 'delete';
   genders: Gender[] = [];
   classrooms: Classroom[] = [];
+  courses: Course[] = [];
+  multiselectSettings: IDropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'title',
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    noDataAvailablePlaceholderText: 'No available items',
+    itemsShowLimit: 1,
+    allowSearchFilter: true,
+  };
 
   constructor(
     public activeModal: NgbActiveModal,
     protected genderSvc: GenderService,
     protected instructorSvc: InstructorService,
     protected classroomSvc: ClassroomService,
+    protected courseSvc: CourseService,
   ) { }
 
   async ngOnInit() {
     this.genders = await this.genderSvc.fetchMany();
     this.classrooms = await this.classroomSvc.fetchMany();
+    this.courses = await this.courseSvc.fetchMany();
   }
 
   async submit() {

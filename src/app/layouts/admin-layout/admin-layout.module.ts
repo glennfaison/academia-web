@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -36,6 +37,7 @@ import { ClassResultsFormComponent } from 'src/app/pages/class-results-form/clas
     NgbModule,
     FilterPipeModule,
     NgxDatatableModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   declarations: [
     DashboardComponent,

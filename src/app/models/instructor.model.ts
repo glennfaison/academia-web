@@ -1,4 +1,5 @@
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { Classroom } from './classroom.model';
 
 export class Instructor {
   [x: string]: any;
@@ -25,7 +26,7 @@ export class Instructor {
   gender_id: number;
   gender?: any;
   courses_taught?: any[];
-  classrooms?: any[];
+  classrooms?: Classroom[];
 
   constructor(obj: any = {}) {
     const keys = Object.keys(obj);
